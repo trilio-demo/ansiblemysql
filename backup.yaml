@@ -1,0 +1,9 @@
+apiVersion: triliovault.trilio.io/v1
+kind: Backup
+metadata:
+  name: mysql-label-backup
+spec:
+  type: Full
+  backupPlan:
+    name: backupplan-demo
+    namespace: hopper

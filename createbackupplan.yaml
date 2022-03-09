@@ -1,0 +1,16 @@
+---
+- name: Ensure a backup plan is ready
+  hosts: localhost
+  tasks:
+    - name: Copy the backup plan yaml file
+      become: true
+      copy:
+        src: backupplan.yaml
+        dest: /tmp/backupplan.yaml
+
+    - name: Ensure the backup plan is available
+      k8s:
+        kubeconfig: "stagingconfig"
+        state: present
+        namespace: hopper
+        src: /tmp/backupplan.yaml

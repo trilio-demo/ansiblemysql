@@ -1,0 +1,13 @@
+apiVersion: triliovault.trilio.io/v1
+kind: BackupPlan
+metadata:
+  name: backupplan-demo
+spec:
+  backupNamespace: hopper
+  backupConfig:
+    target:
+      name: hopper-demo-s3-target
+  backupPlanComponents:
+    custom:
+      - matchLabels:
+          app: k8s-demo-app

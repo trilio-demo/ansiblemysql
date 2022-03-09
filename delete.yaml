@@ -1,0 +1,11 @@
+---
+- name: Creating a namespace, secret and target for TVK using Ansible
+  hosts: localhost
+  tasks:
+    - name: Ensure the namespace rodolfo does not exist
+      k8s:
+        kubeconfig: "stagingconfig"
+        name: hopper 
+        api_version: v1
+        kind: Namespace
+        state: absent

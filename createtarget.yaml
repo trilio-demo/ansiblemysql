@@ -1,0 +1,29 @@
+---
+- name: Ensure a backup target is available
+  hosts: localhost
+  tasks:
+    - name: Copy secret yaml file
+      become: true
+      copy:
+        src: secret.yaml
+        dest: /tmp/secret.yaml
+
+    - name: Ensure Secret is present
+      k8s:
+        kubeconfig: "stagingconfig"
+        state: present      
+        namespace: hopper 
+        src: /tmp/secret.yaml
+
+    - name: Copy backup target yaml file
+      become: true
+      copy:
+        src: target.yaml
+        dest: /tmp/target.yaml
+
+    - name: Ensure backup target is available
+      k8s:
+        kubeconfig: "stagingconfig"
+        state: present
+        namespace: hopper
+        src: /tmp/target.yaml

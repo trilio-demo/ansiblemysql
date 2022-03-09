@@ -1,0 +1,16 @@
+---
+- name: Launch a backup
+  hosts: localhost
+  tasks:
+    - name: Copy the backup plan yaml file
+      become: true
+      copy:
+        src: backup.yaml
+        dest: /tmp/backup.yaml
+
+    - name: Ensure the backup runs
+      k8s:
+        kubeconfig: "stagingconfig"
+        state: present
+        namespace: hopper
+        src: /tmp/backup.yaml

@@ -1,0 +1,16 @@
+---
+- name: Launch an app
+  hosts: localhost
+  tasks:
+    - name: Copying the app yaml file
+      become: true
+      copy:
+        src: app.yaml
+        dest: /tmp/app.yaml
+
+    - name: Launching the app
+      k8s:
+        kubeconfig: "stagingconfig"
+        state: present
+        namespace: hopper
+        src: /tmp/app.yaml
